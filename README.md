@@ -3,7 +3,7 @@
 A web app that tailors your resume to a specific job posting using Google's
 Gemini API. You enter your background (or auto-fill it from a LinkedIn PDF),
 paste a job posting, and the app rewrites your experience and projects into
-tailored, metric-driven bullet points — then renders a clean, professionally
+tailored, metric-driven bullet points, then renders a clean, professionally
 formatted resume you can download as a PDF.
 
 ## Features
