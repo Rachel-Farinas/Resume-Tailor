@@ -38,7 +38,7 @@ formatted resume you can download as a PDF.
 ├── server/                 # Node/Express backend
 │   ├── index.js            # Express app: serves client/ + mounts API, reads PORT
 │   ├── routes/
-│   │   └── resume.js        # Gemini integration + API routes (schemas, prompts)
+│   │   └── resume.js       # Gemini integration + API routes (schemas, prompts)
 │   ├── .env.example        # Template for required environment variables
 │   └── package.json        # Server dependencies and start script
 └── README.md
