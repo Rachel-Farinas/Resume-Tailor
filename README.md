@@ -54,7 +54,7 @@ formatted resume you can download as a PDF.
 ## Prerequisites
 
 - [Node.js](https://nodejs.org/) 18+ (for the built-in `fetch`/ESM support)
-- A Gemini API key — get one free at https://aistudio.google.com/apikey
+- A Gemini API key
 
 ## Setup (local)
 
