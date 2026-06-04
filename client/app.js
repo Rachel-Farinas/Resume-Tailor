@@ -66,7 +66,7 @@ function collectEntries(type) {
   });
 }
 
-// --- Pre-fill the form with sensible dummy data -------------------------------
+// --- Form field helpers -------------------------------------------------------
 
 // Set a field's value by name within a given root (defaults to the document).
 function setField(name, value, root = document) {
@@ -94,100 +94,6 @@ function fillEntry(entry, values) {
   });
 }
 
-function prefillForm() {
-  // Job posting
-  setField("jobTitle", "Senior Software Engineer");
-  setField("jobCompany", "Acme Inc.");
-  setField(
-    "jobDescription",
-    "We're looking for a Senior Software Engineer to design, build, and scale " +
-      "customer-facing web applications used by millions of people every day. " +
-      "In this role you will own features end to end, from technical design " +
-      "and implementation through testing, deployment, and ongoing operation " +
-      "in production. You'll work across a modern React front end and a " +
-      "Node.js back end, collaborating closely with product managers, " +
-      "designers, and fellow engineers to turn ambiguous problems into " +
-      "reliable, well-tested software. We value engineers who care deeply " +
-      "about code quality, write clear documentation, and mentor others on " +
-      "the team.\n\n" +
-      "Responsibilities include designing and implementing RESTful and " +
-      "GraphQL APIs, building responsive and accessible user interfaces, " +
-      "improving application performance, and strengthening our automated " +
-      "test coverage. You will participate in code reviews, contribute to " +
-      "architectural decisions, and help evolve our CI/CD pipelines so that " +
-      "the team can ship safely and frequently. You'll also partner with our " +
-      "platform team to improve observability, monitoring, and incident " +
-      "response across our services.\n\n" +
-      "The ideal candidate has at least five years of professional software " +
-      "engineering experience and is fluent in JavaScript and TypeScript. " +
-      "You should have hands-on experience with React, Node.js, and " +
-      "relational databases such as PostgreSQL, as well as familiarity with " +
-      "cloud infrastructure on AWS, containerization with Docker, and " +
-      "infrastructure-as-code. Strong communication skills, a bias toward " +
-      "action, and a track record of delivering measurable business impact " +
-      "are essential. Experience with distributed systems, performance " +
-      "optimization, and leading small project teams is a significant plus. " +
-      "We offer competitive compensation, equity, comprehensive health " +
-      "benefits, a generous learning budget, and a flexible remote-friendly " +
-      "work environment where your contributions directly shape the product."
-  );
-
-  // Basics
-  setField("name", "Jane Doe");
-  setField("title", "Software Engineer");
-  setField("location", "San Francisco, CA");
-  setField("phone", "(555) 123-4567");
-  setField("email", "jane.doe@example.com");
-  setField("linkedin", "linkedin.com/in/janedoe");
-  setField("website", "janedoe.dev");
-  setField("github", "github.com/janedoe");
-
-  // Skills
-  setField(
-    "skills",
-    "JavaScript, TypeScript, React, Node.js, Python, SQL, AWS, Docker, GraphQL"
-  );
-
-  // One Education entry
-  fillEntry(addEntry("education"), {
-    degree: "B.S. Computer Science",
-    gpa: "3.8",
-    institution: "University of California, Berkeley",
-    years: "2016 – 2020",
-  });
-
-  // One Work experience entry
-  fillEntry(addEntry("experience"), {
-    company: "Acme Inc.",
-    role: "Software Engineer",
-    location: "San Francisco, CA",
-    timeline: "Jun 2020 – Present",
-    description:
-      "Worked as a full-stack engineer on Acme's customer-facing web " +
-      "platform, building and maintaining features across a React front end " +
-      "and a Node.js back end. Collaborated daily with product managers and " +
-      "designers to scope, design, and ship new functionality, owning each " +
-      "feature from initial technical design through production deployment " +
-      "and monitoring. Wrote and maintained automated tests, participated in " +
-      "code reviews, and helped improve the team's CI/CD pipeline. Partnered " +
-      "with the platform team to debug production incidents, optimize slow " +
-      "database queries, and improve overall application reliability and " +
-      "performance for a rapidly growing user base.",
-    metric: "Improved API response time by 40% by introducing Redis caching",
-  });
-
-  // One Project entry
-  fillEntry(addEntry("project"), {
-    name: "Resume Tailor",
-    description:
-      "A full-stack web application that tailors a candidate's resume to a " +
-      "specific job posting using the Gemini API. Users enter their " +
-      "experience and a target role, and the app rewrites bullet points to " +
-      "highlight the most relevant skills and keywords, then renders a clean, " +
-      "downloadable resume formatted to match a professional template.",
-    metric: "Cut resume preparation time by 70% for early users",
-  });
-}
 
 // --- Result rendering: resume preview + download ------------------------------
 
@@ -770,5 +676,7 @@ linkedinFile.addEventListener("change", async () => {
   }
 });
 
-// Start with one pre-filled entry of each repeatable section.
-prefillForm();
+// Start with one empty entry of each repeatable section so the fields are visible.
+addEntry("education");
+addEntry("experience");
+addEntry("project");
