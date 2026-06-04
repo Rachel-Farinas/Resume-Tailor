@@ -1,1 +1,1 @@
-# RAG-Resume-Tailor
+# Resume Tailor
