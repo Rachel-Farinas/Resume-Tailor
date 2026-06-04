@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Resume Tailor</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header class="site-header">
+    <h1>Resume Tailor</h1>
+    <div class="header-actions">
+      <button type="button" class="btn-linkedin" id="linkedin-btn">
+        <span class="btn-label">Fill with LinkedIn</span>
+        <span class="btn-spinner" aria-hidden="true"></span>
+      </button>
+      <p class="header-hint">
+        In LinkedIn: Profile → Resources → Save to PDF, then upload it here.
+      </p>
+      <input type="file" id="linkedin-file" accept="application/pdf" hidden />
+    </div>
+  </header>
+
+  <main class="container">
+    <form id="resume-form" novalidate>
+
+      <!-- Job posting -->
+      <section class="card">
+        <h2>Job posting</h2>
+        <div class="grid">
+          <div class="field">
+            <label for="job-title">Title</label>
+            <input type="text" id="job-title" name="jobTitle" placeholder="Senior Software Engineer" />
+          </div>
+          <div class="field">
+            <label for="job-company">Company</label>
+            <input type="text" id="job-company" name="jobCompany" placeholder="Acme Inc." />
+          </div>
+          <div class="field field-full">
+            <label for="job-description">Job posting text <span class="hint">(min 200 words)</span></label>
+            <textarea id="job-description" name="jobDescription" rows="8"
+              placeholder="Paste the full job description here."></textarea>
+          </div>
+        </div>
+      </section>
+
+      <!-- Contact / basics -->
+      <section class="card">
+        <h2>Basics</h2>
+        <div class="grid">
+          <div class="field">
+            <label for="name">Name</label>
+            <input type="text" id="name" name="name" placeholder="Jane Doe" />
+          </div>
+          <div class="field">
+            <label for="title">Title</label>
+            <input type="text" id="title" name="title" placeholder="Software Engineer" />
+          </div>
+          <div class="field">
+            <label for="location">Location</label>
+            <input type="text" id="location" name="location" placeholder="City, State" />
+          </div>
+          <div class="field">
+            <label for="phone">Phone number</label>
+            <input type="tel" id="phone" name="phone" placeholder="(555) 555-5555" />
+          </div>
+          <div class="field">
+            <label for="email">Email</label>
+            <input type="email" id="email" name="email" placeholder="jane@example.com" />
+          </div>
+          <div class="field">
+            <label for="linkedin">LinkedIn</label>
+            <input type="url" id="linkedin" name="linkedin" placeholder="linkedin.com/in/janedoe" />
+          </div>
+          <div class="field">
+            <label for="website">Personal website</label>
+            <input type="url" id="website" name="website" placeholder="janedoe.com" />
+          </div>
+          <div class="field">
+            <label for="github">GitHub</label>
+            <input type="url" id="github" name="github" placeholder="github.com/janedoe" />
+          </div>
+        </div>
+      </section>
+
+      <!-- Education -->
+      <section class="card">
+        <div class="section-head">
+          <h2>Education</h2>
+          <button type="button" class="btn-add" data-add="education">+ Add education</button>
+        </div>
+        <div id="education-list"></div>
+      </section>
+
+      <!-- Skills -->
+      <section class="card">
+        <h2>Skills</h2>
+        <div class="field">
+          <label for="skills">Skills</label>
+          <textarea id="skills" name="skills" rows="3"
+            placeholder="Comma-separated, e.g. Python, SQL, React, AWS"></textarea>
+        </div>
+      </section>
+
+      <!-- Work experience -->
+      <section class="card">
+        <div class="section-head">
+          <h2>Work experience</h2>
+          <button type="button" class="btn-add" data-add="experience">+ Add experience</button>
+        </div>
+        <div id="experience-list"></div>
+      </section>
+
+      <!-- Projects -->
+      <section class="card">
+        <div class="section-head">
+          <h2>Projects</h2>
+          <button type="button" class="btn-add" data-add="project">+ Add project</button>
+        </div>
+        <div id="project-list"></div>
+      </section>
+
+      <div class="actions">
+        <button type="submit" class="btn-primary" id="create-btn">
+          <span class="btn-label">Create resume</span>
+          <span class="btn-spinner" aria-hidden="true"></span>
+        </button>
+      </div>
+    </form>
+
+    <!-- Result: progress bar while generating, then the resume + download.
+         Which part shows is driven entirely by data-state (loading|ready). -->
+    <section id="result" class="card result" hidden>
+      <h2>Your tailored resume</h2>
+
+      <!-- Shown while waiting for Gemini to respond. -->
+      <div class="result-loading" id="result-loading">
+        <div class="progress">
+          <div class="progress-bar" id="progress-bar"></div>
+        </div>
+        <p class="progress-label">
+          <span id="progress-pct">0</span>% — generating your resume…
+        </p>
+      </div>
+
+      <!-- Shown only once a valid resume has come back. -->
+      <div class="result-ready" id="result-ready">
+        <div class="resume-page" id="resume-preview"></div>
+        <div class="result-actions">
+          <button type="button" class="btn-primary" id="download-btn">Download resume</button>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Templates -->
+  <template id="education-template">
+    <div class="entry" data-entry="education">
+      <button type="button" class="btn-remove" data-remove aria-label="Remove"></button>
+      <div class="grid">
+        <div class="field">
+          <label>Degree</label>
+          <input type="text" name="degree" placeholder="B.S. Computer Science" />
+        </div>
+        <div class="field">
+          <label>GPA</label>
+          <input type="text" name="gpa" placeholder="3.8" />
+        </div>
+        <div class="field">
+          <label>Institution</label>
+          <input type="text" name="institution" placeholder="State University" />
+        </div>
+        <div class="field">
+          <label>Years attended</label>
+          <input type="text" name="years" placeholder="2018 – 2022" />
+        </div>
+      </div>
+    </div>
+  </template>
+
+  <template id="experience-template">
+    <div class="entry" data-entry="experience">
+      <button type="button" class="btn-remove" data-remove aria-label="Remove"></button>
+      <div class="grid">
+        <div class="field">
+          <label>Company</label>
+          <input type="text" name="company" placeholder="Acme Inc." />
+        </div>
+        <div class="field">
+          <label>Role</label>
+          <input type="text" name="role" placeholder="Software Engineer" />
+        </div>
+        <div class="field">
+          <label>Location</label>
+          <input type="text" name="location" placeholder="City, State / Remote" />
+        </div>
+        <div class="field">
+          <label>Timeline</label>
+          <input type="text" name="timeline" placeholder="Jan 2022 – Present" />
+        </div>
+        <div class="field field-full">
+          <label>Description <span class="hint">(min 50 words)</span></label>
+          <textarea name="description" rows="3"
+            placeholder="What you did and what you achieved."></textarea>
+        </div>
+        <div class="field field-full">
+          <div class="section-head">
+            <label>Metrics</label>
+            <button type="button" class="btn-add" data-add-metric>+ Add metric</button>
+          </div>
+          <div class="metric-list" data-metric-list></div>
+        </div>
+      </div>
+    </div>
+  </template>
+
+  <template id="project-template">
+    <div class="entry" data-entry="project">
+      <button type="button" class="btn-remove" data-remove aria-label="Remove"></button>
+      <div class="grid">
+        <div class="field field-full">
+          <label>Project name</label>
+          <input type="text" name="name" placeholder="Resume Tailor" />
+        </div>
+        <div class="field field-full">
+          <label>Description <span class="hint">(min 50 words)</span></label>
+          <textarea name="description" rows="3"
+            placeholder="What the project does and the technologies used."></textarea>
+        </div>
+        <div class="field field-full">
+          <div class="section-head">
+            <label>Metrics</label>
+            <button type="button" class="btn-add" data-add-metric>+ Add metric</button>
+          </div>
+          <div class="metric-list" data-metric-list></div>
+        </div>
+      </div>
+    </div>
+  </template>
+
+  <template id="metric-template">
+    <div class="metric-row">
+      <input type="text" name="metric"
+        placeholder="Improved AI accuracy by 54% by improving data orchestration" />
+      <button type="button" class="btn-remove btn-remove-inline" data-remove-metric
+        aria-label="Remove metric"></button>
+    </div>
+  </template>
+
+  <script src="app.js"></script>
+</body>
+</html>

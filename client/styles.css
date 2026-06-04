@@ -1,0 +1,496 @@
+:root {
+  --black: #000;
+  --white: #fff;
+  --gray-line: #d9d9d9;
+  --gray-soft: #f5f5f5;
+  --gray-text: #555;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  color: var(--black);
+  background: var(--white);
+  line-height: 1.5;
+}
+
+.site-header {
+  padding: 24px 16px;
+  text-align: center;
+}
+
+.site-header h1 {
+  margin: 0;
+  font-size: 2rem;
+  letter-spacing: 1px;
+}
+
+/* "Fill with LinkedIn" import action in the header. */
+.header-actions {
+  margin-top: 16px;
+}
+
+.btn-linkedin {
+  background: #0a66c2;
+  color: var(--white);
+  border: 1px solid #0a66c2;
+  border-radius: 6px;
+  padding: 10px 22px;
+  font-size: 0.95rem;
+}
+
+.btn-linkedin:hover {
+  background: #004182;
+  border-color: #004182;
+}
+
+.btn-linkedin:disabled {
+  cursor: default;
+  opacity: 0.85;
+}
+
+.header-hint {
+  margin: 10px 0 0;
+  font-size: 0.85rem;
+  color: var(--gray-text);
+}
+
+.container {
+  max-width: 820px;
+  margin: 0 auto;
+  padding: 32px 16px 64px;
+}
+
+.card {
+  border: 1px solid var(--gray-line);
+  border-radius: 8px;
+  padding: 20px;
+  margin-bottom: 24px;
+}
+
+.card h2 {
+  margin: 0 0 16px;
+  font-size: 1.2rem;
+}
+
+.section-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 16px;
+}
+
+.section-head h2,
+.section-head label {
+  margin: 0;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 16px;
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+}
+
+.field-full {
+  grid-column: 1 / -1;
+}
+
+label {
+  font-size: 0.85rem;
+  font-weight: 600;
+  margin-bottom: 6px;
+}
+
+input,
+textarea {
+  font: inherit;
+  padding: 10px 12px;
+  border: 1px solid var(--gray-line);
+  border-radius: 6px;
+  background: var(--white);
+  color: var(--black);
+  width: 100%;
+}
+
+input:focus,
+textarea:focus {
+  outline: none;
+  border-color: var(--black);
+}
+
+textarea {
+  resize: vertical;
+}
+
+/* Inline label hint, e.g. "(min 100 words)". */
+.hint {
+  font-weight: 400;
+  font-size: 0.78rem;
+  color: var(--gray-text);
+}
+
+/* Validation states. */
+.invalid {
+  border-color: #c0392b !important;
+}
+
+.field-error {
+  margin: 6px 0 0;
+  color: #c0392b;
+  font-size: 0.8rem;
+}
+
+/* Repeatable entries */
+.entry {
+  position: relative;
+  border: 1px solid var(--gray-line);
+  border-radius: 6px;
+  padding: 16px;
+  margin-bottom: 16px;
+  background: var(--gray-soft);
+}
+
+.entry:last-child {
+  margin-bottom: 0;
+}
+
+/* Buttons */
+button {
+  cursor: pointer;
+  font: inherit;
+}
+
+.btn-add {
+  background: var(--white);
+  color: var(--black);
+  border: 1px solid var(--black);
+  border-radius: 6px;
+  padding: 6px 12px;
+  font-size: 0.85rem;
+}
+
+.btn-add:hover {
+  background: var(--black);
+  color: var(--white);
+}
+
+.btn-remove {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  width: 28px;
+  height: 28px;
+  padding: 0;
+  background: var(--white);
+  border: 1px solid var(--gray-line);
+  border-radius: 6px;
+}
+
+/* Cross drawn with CSS so it is perfectly centered regardless of font metrics. */
+.btn-remove::before,
+.btn-remove::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 14px;
+  height: 2px;
+  background: var(--gray-text);
+  transform: translate(-50%, -50%) rotate(45deg);
+}
+
+.btn-remove::after {
+  transform: translate(-50%, -50%) rotate(-45deg);
+}
+
+/* Inline remove button used inside metric rows (sits in normal flow,
+   but keeps the same size and cross as the absolute entry buttons). */
+.btn-remove-inline {
+  position: relative;
+  top: auto;
+  right: auto;
+  flex-shrink: 0;
+}
+
+.btn-remove:hover {
+  border-color: var(--black);
+}
+
+.btn-remove:hover::before,
+.btn-remove:hover::after {
+  background: var(--black);
+}
+
+/* Metric rows: input + inline remove button. */
+.metric-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 8px;
+}
+
+.metric-row:last-child {
+  margin-bottom: 0;
+}
+
+.actions {
+  text-align: right;
+}
+
+.btn-primary {
+  background: var(--black);
+  color: var(--white);
+  border: 1px solid var(--black);
+  border-radius: 6px;
+  padding: 12px 28px;
+  font-size: 1rem;
+}
+
+.btn-primary:hover {
+  background: var(--white);
+  color: var(--black);
+}
+
+.btn-primary:disabled {
+  cursor: default;
+  opacity: 0.85;
+}
+
+.btn-primary:disabled:hover {
+  background: var(--black);
+  color: var(--white);
+}
+
+/* Loading button: hide the label, show a spinner. */
+.btn-spinner {
+  display: none;
+  width: 16px;
+  height: 16px;
+  border: 2px solid rgba(255, 255, 255, 0.4);
+  border-top-color: var(--white);
+  border-radius: 50%;
+  animation: spin 0.7s linear infinite;
+}
+
+.btn-primary.is-loading .btn-label,
+.btn-linkedin.is-loading .btn-label {
+  display: none;
+}
+
+.btn-primary.is-loading .btn-spinner,
+.btn-linkedin.is-loading .btn-spinner {
+  display: inline-block;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Result block */
+.result {
+  text-align: center;
+  margin-top: 48px;
+}
+
+.result-actions {
+  margin-top: 20px;
+}
+
+/* Show exactly one of loading / ready, driven by data-state.
+   The resume (inside .result-ready) is fully removed from layout
+   until the response is complete — not just visually hidden. */
+.result-loading,
+.result-ready {
+  display: none;
+}
+
+.result[data-state="loading"] .result-loading {
+  display: flex;
+}
+
+.result[data-state="ready"] .result-ready {
+  display: block;
+}
+
+/* Percentage progress bar shown while waiting for Gemini. */
+.result-loading {
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  padding: 32px 0;
+  color: var(--gray-text);
+}
+
+.progress {
+  width: 100%;
+  max-width: 360px;
+  height: 10px;
+  background: var(--gray-soft);
+  border: 1px solid var(--gray-line);
+  border-radius: 999px;
+  overflow: hidden;
+}
+
+.progress-bar {
+  width: 0;
+  height: 100%;
+  background: var(--black);
+  border-radius: 999px;
+  transition: width 0.25s ease;
+}
+
+.progress-label {
+  margin: 0;
+  font-size: 0.9rem;
+}
+
+/* The rendered resume "page" — used in the result preview and print.
+   Layout mirrors the reference resume PDF. */
+.resume-page {
+  width: 612px; /* US Letter at 72dpi */
+  min-height: 792px;
+  padding: 40px 48px;
+  background: var(--white);
+  color: #000;
+  font-family: "Lato", "Helvetica Neue", Arial, sans-serif;
+  font-size: 11px;
+  line-height: 1.35;
+  text-align: left;
+  overflow-wrap: anywhere;
+}
+
+/* Centered header: name + contact lines. */
+.r-header {
+  text-align: center;
+  margin-bottom: 8px;
+}
+
+.r-name {
+  font-size: 24px;
+  font-weight: 700;
+  margin: 0 0 5px;
+}
+
+.r-contact {
+  font-size: 10.5px;
+  line-height: 1.6;
+}
+
+.r-contact-item {
+  white-space: nowrap;
+  margin: 0 7px;
+}
+
+.r-contact-item svg {
+  width: 11px;
+  height: 11px;
+  vertical-align: -1.5px;
+  margin-right: 3px;
+}
+
+.r-contact a {
+  color: #000;
+  text-decoration: none;
+}
+
+/* Sections with an underlined uppercase title. */
+.r-section {
+  margin-top: 11px;
+}
+
+.r-section-title {
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  border-bottom: 1.4px solid #000;
+  padding-bottom: 1px;
+  margin: 0 0 5px;
+}
+
+/* Each entry: bold title + italic org on the left, location | dates right. */
+.r-entry {
+  margin-bottom: 8px;
+}
+
+.r-entry:last-child {
+  margin-bottom: 0;
+}
+
+.r-entry-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 14px;
+}
+
+.r-entry-title {
+  flex: 1;
+}
+
+.r-entry-title em {
+  font-style: italic;
+}
+
+.r-entry-meta {
+  white-space: nowrap;
+  text-align: right;
+}
+
+.r-bullets {
+  margin: 1px 0 0;
+  padding-left: 15px;
+  list-style: disc;
+}
+
+.r-bullets li {
+  margin-bottom: 1px;
+}
+
+.r-skills {
+  margin: 0;
+}
+
+/* The result shows the actual resume page at full size, centered. */
+.result-ready .resume-page {
+  margin: 0 auto;
+  max-width: 100%;
+  box-shadow: 0 2px 16px rgba(0, 0, 0, 0.15);
+}
+
+@media (max-width: 600px) {
+  .grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Print-to-PDF: the download iframe loads this stylesheet and prints
+   a .resume-page laid out to fill the page (no fixed width / shadow). */
+@media print {
+  @page {
+    margin: 0.5in;
+  }
+
+  body.print-body {
+    margin: 0;
+    background: var(--white);
+  }
+
+  .print-body .resume-page {
+    width: auto;
+    min-height: 0;
+    padding: 0;
+    box-shadow: none;
+  }
+}

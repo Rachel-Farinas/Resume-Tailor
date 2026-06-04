@@ -1,0 +1,24 @@
+# Dependencies
+node_modules/
+
+# Environment / secrets — NEVER commit real API keys
+.env
+.env.local
+.env.*.local
+
+# Editor / IDE
+.vs/
+.vscode/
+.idea/
+
+# OS junk
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+npm-debug.log*
+
+# Personal data — not used by the app, contains personal contact info.
+# Delete this line if you want the sample resume PDF in the repo.
+server/Rachel Farinas Resume May 2026.pdf
